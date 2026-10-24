@@ -33,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -78,7 +79,7 @@ fun HomeScreen(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 80.dp)
+            .padding(bottom = 120.dp)
     ) {
         // Header
         Column(modifier = Modifier.padding(bottom = 20.dp)) {
@@ -109,6 +110,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(177.dp)
+                        .clipToBounds()
                 ) {
                     DeviceGraphic(
                         modifier = Modifier.fillMaxSize(),

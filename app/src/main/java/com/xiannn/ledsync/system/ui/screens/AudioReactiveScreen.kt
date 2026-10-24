@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -69,7 +70,7 @@ fun AudioReactiveScreen(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 80.dp)
+            .navigationBarsPadding()
     ) {
         // Back Header
         Row(

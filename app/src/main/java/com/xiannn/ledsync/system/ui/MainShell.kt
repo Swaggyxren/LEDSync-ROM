@@ -6,6 +6,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +50,7 @@ fun MainShell() {
         modifier = Modifier
             .fillMaxSize()
             .background(BgLight)
+            .statusBarsPadding()
     ) {
         when (currentRoute) {
             ScreenRoute.HOME -> {
@@ -102,7 +105,9 @@ fun MainShell() {
             visible = showDock,
             enter = fadeIn(),
             exit = fadeOut(),
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
         ) {
             FigmaDock(
                 currentTab = currentTab,

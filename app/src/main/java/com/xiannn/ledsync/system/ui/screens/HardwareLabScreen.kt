@@ -64,7 +64,7 @@ fun HardwareLabScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 80.dp)
+            .padding(bottom = 120.dp)
     ) {
         // Header
         Column(modifier = Modifier.padding(bottom = 16.dp)) {

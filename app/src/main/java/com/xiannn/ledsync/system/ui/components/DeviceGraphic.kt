@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -17,16 +18,17 @@ import com.xiannn.ledsync.system.ui.theme.TertiaryContainer
 
 @Composable
 fun DeviceGraphic(modifier: Modifier = Modifier, isActive: Boolean = true) {
-    Canvas(modifier = modifier.fillMaxSize()) {
+    Canvas(modifier = modifier.fillMaxSize().clipToBounds()) {
         val w = size.width
         val h = size.height
 
-        // Scaling factors based on SVG viewBox="39 90 193 91"
-        val sx = w / 193f
-        val sy = h / 91f
+        // Scaling factors based on SVG viewBox="39 90 193 91" preserveAspectRatio="xMidYMid slice"
+        val scale = maxOf(w / 193f, h / 91f)
+        val dx = (w - 193f * scale) / 2f
+        val dy = (h - 91f * scale) / 2f
 
-        fun tx(x: Float) = (x - 39f) * sx
-        fun ty(y: Float) = (y - 90f) * sy
+        fun tx(x: Float) = (x - 39f) * scale + dx
+        fun ty(y: Float) = (y - 90f) * scale + dy
 
         // Background polygon 1
         val p1 = Path().apply {
@@ -86,12 +88,12 @@ fun DeviceGraphic(modifier: Modifier = Modifier, isActive: Boolean = true) {
         drawPath(
             ledPath,
             color = glowColor,
-            style = Stroke(width = 12f * sx, cap = StrokeCap.Round, join = StrokeJoin.Round)
+            style = Stroke(width = 10.5f * scale, cap = StrokeCap.Round, join = StrokeJoin.Round)
         )
         drawPath(
             ledPath,
             color = coreColor,
-            style = Stroke(width = 5f * sx, cap = StrokeCap.Round, join = StrokeJoin.Round)
+            style = Stroke(width = 4.6f * scale, cap = StrokeCap.Round, join = StrokeJoin.Round)
         )
     }
 }

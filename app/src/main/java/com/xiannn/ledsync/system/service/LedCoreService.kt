@@ -210,6 +210,29 @@ class LedCoreService : NotificationListenerService() {
         sensorManager = getSystemService(SensorManager::class.java)
         cameraManager = getSystemService(CameraManager::class.java)
         createNotificationChannel()
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(FG_NOTIF_ID, buildNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            } else {
+                startForeground(FG_NOTIF_ID, buildNotification())
+            }
+        } catch (e: Exception) {
+            Log.e("LedCoreService", "Failed to startForeground in onCreate", e)
+        }
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(FG_NOTIF_ID, buildNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            } else {
+                startForeground(FG_NOTIF_ID, buildNotification())
+            }
+        } catch (e: Exception) {
+            Log.e("LedCoreService", "Failed to startForeground in onStartCommand", e)
+        }
+        return START_STICKY
     }
 
     override fun onListenerConnected() {

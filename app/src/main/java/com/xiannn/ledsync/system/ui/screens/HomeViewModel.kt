@@ -66,7 +66,11 @@ class HomeViewModel @Inject constructor(
             cpuUsagePct = _cpuUsage.value,
             ramUsedGb = _ramUsed.value,
             ramTotalGb = _ramTotal.value,
-            deviceModel = "${Build.MANUFACTURER.uppercase()} ${Build.MODEL} (${Build.DEVICE})",
+            deviceModel = if (Build.MODEL.contains(Build.DEVICE, ignoreCase = true)) {
+                "${Build.MANUFACTURER.uppercase()} ${Build.MODEL}"
+            } else {
+                "${Build.MANUFACTURER.uppercase()} ${Build.MODEL} (${Build.DEVICE})"
+            },
             androidVersion = "Android ${Build.VERSION.RELEASE} (${Build.ID})",
             kernelRelease = System.getProperty("os.version") ?: "5.10-kernel"
         )

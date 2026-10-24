@@ -65,7 +65,7 @@ fun TweaksScreen(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 80.dp)
+            .padding(bottom = 120.dp)
     ) {
         // Header
         Column(modifier = Modifier.padding(bottom = 20.dp)) {
