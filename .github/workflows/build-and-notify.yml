@@ -36,15 +36,28 @@ jobs:
           echo -e "84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-      - name: Decode Release Keystore
+      - name: Setup Release Keystore
         env:
           RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          KEYSTORE_PASS: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || 'ledsync123' }}
+          KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || 'ledsync' }}
+          KEY_PASS: ${{ secrets.RELEASE_KEY_PASSWORD || 'ledsync123' }}
         run: |
           if [ -n "$RELEASE_KEYSTORE_BASE64" ]; then
             echo "$RELEASE_KEYSTORE_BASE64" | base64 -d > app/ledsync-release.keystore
-            echo "Release keystore decoded successfully."
+            echo "Release keystore decoded from repository secret."
           else
-            echo "RELEASE_KEYSTORE_BASE64 secret not set. Falling back to debug signing."
+            echo "RELEASE_KEYSTORE_BASE64 not provided. Generating dedicated release keystore for CI signing..."
+            keytool -genkeypair -v \
+              -keystore app/ledsync-release.keystore \
+              -alias "$KEY_ALIAS" \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass "$KEYSTORE_PASS" \
+              -keypass "$KEY_PASS" \
+              -dname "CN=LEDSync-ROM, OU=System, O=Swaggyxren, C=US"
+            echo "Release keystore generated successfully."
           fi
 
       - name: Extract App Version
@@ -57,9 +70,9 @@ jobs:
       - name: Build Release APK
         env:
           RELEASE_KEYSTORE_PATH: ledsync-release.keystore
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || 'ledsync123' }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || 'ledsync' }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || 'ledsync123' }}
           APP_VERSION: ${{ steps.appver.outputs.name }}
           BUILD_SHA: ${{ steps.appver.outputs.sha }}
         run: |
