@@ -20,6 +20,7 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.media.AudioManager
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
