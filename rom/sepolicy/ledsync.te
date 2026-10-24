@@ -1,0 +1,11 @@
+#
+# SELinux Policy for LEDSync-ROM
+#
+
+# Allow system_app and platform_app to directly manage the AW22xxx LED nodes
+allow system_app sysfs_tran_led_file:file rw_file_perms;
+allow platform_app sysfs_tran_led_file:file rw_file_perms;
+allow system_app sysfs_leds:file rw_file_perms;
+allow platform_app sysfs_leds:file rw_file_perms;
+allow system_app sysfs_leds:dir r_dir_perms;
+allow platform_app sysfs_leds:dir r_dir_perms;

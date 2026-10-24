@@ -1,0 +1,5 @@
+#
+# File contexts for Transsion LED sysfs nodes
+#
+/sys/led/led/tran_led_cmd               u:object_r:sysfs_tran_led_file:s0
+/sys/class/leds/aw22xxx_led(/.*)?       u:object_r:sysfs_leds:s0

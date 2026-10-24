@@ -1,0 +1,54 @@
+//
+// Copyright (C) 2026 Xi'annnnnn / LEDSync-ROM Project
+//
+// Android Blueprint for building LEDSync-ROM as an in-tree system priv-app.
+//
+
+android_app {
+    name: "LEDSync-ROM",
+    srcs: [
+        "../app/src/main/java/**/*.kt",
+        "../app/src/main/java/**/*.java",
+    ],
+    resource_dirs: ["../app/src/main/res"],
+    manifest: "../app/src/main/AndroidManifest.xml",
+
+    certificate: "platform",
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.activity_activity-compose",
+        "androidx.compose.ui_ui",
+        "androidx.compose.material3_material3",
+        "androidx.compose.material_material-icons-extended",
+        "androidx.lifecycle_lifecycle-runtime-compose",
+        "androidx.datastore_datastore-preferences",
+        "kotlinx-coroutines-android",
+    ],
+
+    required: [
+        "privapp-permissions-ledsync.xml",
+        "init.ledsync.rc",
+    ],
+
+    optimize: {
+        enabled: false,
+    },
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-ledsync.xml",
+    sub_dir: "permissions",
+    src: "privapp-permissions-ledsync.xml",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "init.ledsync.rc",
+    sub_dir: "init",
+    src: "init/init.ledsync.rc",
+    vendor: true,
+}

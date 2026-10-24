@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Permissions whitelist for LEDSync-ROM running as a privileged system application.
+-->
+<permissions>
+    <privapp-permissions package="com.xiannn.ledsync.system">
+        <permission name="android.permission.READ_PHONE_STATE"/>
+        <permission name="android.permission.BATTERY_STATS"/>
+        <permission name="android.permission.PACKAGE_USAGE_STATS"/>
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.START_ACTIVITIES_FROM_BACKGROUND"/>
+    </privapp-permissions>
+</permissions>

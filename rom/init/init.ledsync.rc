@@ -1,0 +1,26 @@
+#
+# Init script for Tecno POVA 5 Pro (LH8n) rear LED sysfs access
+#
+on boot
+    # AW22xxx low-level sysfs controls
+    chown system system /sys/class/leds/aw22xxx_led/hwen
+    chmod 0666 /sys/class/leds/aw22xxx_led/hwen
+
+    chown system system /sys/class/leds/aw22xxx_led/imax
+    chmod 0666 /sys/class/leds/aw22xxx_led/imax
+
+    chown system system /sys/class/leds/aw22xxx_led/brightness
+    chmod 0666 /sys/class/leds/aw22xxx_led/brightness
+
+    chown system system /sys/class/leds/aw22xxx_led/trigger
+    chmod 0666 /sys/class/leds/aw22xxx_led/trigger
+
+    chown system system /sys/class/leds/aw22xxx_led/effect
+    chmod 0666 /sys/class/leds/aw22xxx_led/effect
+
+    chown system system /sys/class/leds/aw22xxx_led/gain
+    chmod 0666 /sys/class/leds/aw22xxx_led/gain
+
+    # Transsion LED unified command packet gateway
+    chown system system /sys/led/led/tran_led_cmd
+    chmod 0666 /sys/led/led/tran_led_cmd
