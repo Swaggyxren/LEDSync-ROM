@@ -78,23 +78,23 @@ fun HomeScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 120.dp)
+            .padding(horizontal = 14.dp, vertical = 6.dp)
+            .padding(bottom = 72.dp)
     ) {
         // Header
-        Column(modifier = Modifier.padding(bottom = 20.dp)) {
+        Column(modifier = Modifier.padding(bottom = 6.dp)) {
             Text(
                 text = "LED Sync",
-                fontSize = 32.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
-                letterSpacing = (-1).sp,
+                letterSpacing = (-0.5).sp,
                 color = TextPrimary
             )
             Text(
                 text = "Device overview",
-                fontSize = 15.sp,
+                fontSize = 12.sp,
                 color = TextSecondary,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 1.dp)
             )
         }
 
@@ -109,7 +109,7 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(177.dp)
+                        .height(100.dp)
                         .clipToBounds()
                 ) {
                     DeviceGraphic(
@@ -120,15 +120,15 @@ fun HomeScreen(
                     // Auto · Normal Chip
                     Box(
                         modifier = Modifier
-                            .padding(start = 24.dp, top = 22.dp)
+                            .padding(start = 16.dp, top = 12.dp)
                             .clip(PillShape)
                             .background(PrimaryContainer)
-                            .padding(horizontal = 13.dp, vertical = 6.dp)
+                            .padding(horizontal = 10.dp, vertical = 3.dp)
                     ) {
                         Text(
                             text = "Auto · Normal",
                             color = OnPrimaryContainer,
-                            fontSize = 12.sp,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -137,8 +137,8 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
-                            .padding(end = 18.dp, top = 18.dp)
-                            .size(44.dp)
+                            .padding(end = 12.dp, top = 10.dp)
+                            .size(36.dp)
                             .clip(CircleShape)
                             .background(if (state.masterEnabled) Primary else Surface3)
                             .clickable { viewModel.toggleMasterPower() },
@@ -148,65 +148,65 @@ fun HomeScreen(
                             imageVector = Icons.Rounded.PowerSettingsNew,
                             contentDescription = "Power",
                             tint = if (state.masterEnabled) OnPrimary else TextSecondary,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(20.dp)
                         )
                     }
                 }
 
                 // Device Specs & Status
-                Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 24.dp)) {
+                Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 6.dp, bottom = 10.dp)) {
                     Text(
                         text = state.deviceModel,
-                        fontSize = 24.sp,
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = TextPrimary,
-                        letterSpacing = (-0.5).sp
+                        letterSpacing = (-0.3).sp
                     )
                     Text(
                         text = state.androidVersion,
-                        fontSize = 13.sp,
+                        fontSize = 11.sp,
                         color = TextSecondary,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
                         text = state.kernelRelease,
-                        fontSize = 12.sp,
+                        fontSize = 10.sp,
                         color = TextSecondary.copy(alpha = 0.7f),
-                        modifier = Modifier.padding(top = 2.dp)
+                        modifier = Modifier.padding(top = 1.dp)
                     )
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
-                            .padding(top = 14.dp)
+                            .padding(top = 6.dp)
                             .clip(PillShape)
                             .background(if (state.masterEnabled) Primary else Surface3)
-                            .padding(horizontal = 14.dp, vertical = 8.dp)
+                            .padding(horizontal = 10.dp, vertical = 4.dp)
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(9.dp)
+                                .size(7.dp)
                                 .clip(CircleShape)
                                 .background(if (state.masterEnabled) OnPrimary else TextSecondary)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = if (state.masterEnabled) "LED service: ACTIVE" else "LED service: PAUSED",
                             color = if (state.masterEnabled) OnPrimary else TextSecondary,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp
+                            fontSize = 11.sp
                         )
                     }
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Row 1: Battery & Sysfs Tiles
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ExpressiveActionTile(
                 icon = Icons.Rounded.Battery5Bar,
@@ -231,7 +231,7 @@ fun HomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Row 2: Audio Reactive Full Width Tile
         Box(
@@ -240,15 +240,15 @@ fun HomeScreen(
                 .clip(TileShapeAsym2)
                 .background(Primary)
                 .clickable { onNavigateToAudio() }
-                .padding(18.dp)
+                .padding(horizontal = 14.dp, vertical = 10.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Box(
                     modifier = Modifier
-                        .size(52.dp)
+                        .size(36.dp)
                         .clip(CircleShape)
                         .background(OnPrimary),
                     contentAlignment = Alignment.Center
@@ -257,31 +257,31 @@ fun HomeScreen(
                         imageVector = Icons.Rounded.GraphicEq,
                         contentDescription = "Audio",
                         tint = Primary,
-                        modifier = Modifier.size(28.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "Audio Reactive LED",
-                        fontSize = 18.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = OnPrimary
                     )
                     Text(
                         text = if (state.audioLedActive) "Reactive mode active" else "Spectrum or static white",
-                        fontSize = 13.sp,
+                        fontSize = 11.sp,
                         color = OnPrimary.copy(alpha = 0.8f)
                     )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Row 3: App LED Sync & Battery LED Studio Tiles
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ExpressiveActionTile(
                 icon = Icons.Rounded.Apps,
@@ -308,7 +308,7 @@ fun HomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         // Row 4: CPU / RAM Load Card
         Box(
@@ -317,15 +317,15 @@ fun HomeScreen(
                 .clip(CardShapeLarge)
                 .background(Surface2)
                 .clickable { onNavigateToPerf() }
-                .padding(20.dp)
+                .padding(horizontal = 14.dp, vertical = 10.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Box(
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(36.dp)
                         .clip(CircleShape)
                         .background(Surface3),
                     contentAlignment = Alignment.Center
@@ -333,7 +333,8 @@ fun HomeScreen(
                     Icon(
                         imageVector = Icons.Rounded.Speed,
                         contentDescription = "Perf",
-                        tint = Primary
+                        tint = Primary,
+                        modifier = Modifier.size(20.dp)
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
@@ -343,22 +344,22 @@ fun HomeScreen(
                     ) {
                         Text(
                             text = "CPU load",
-                            fontSize = 16.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = TextPrimary
                         )
                         Text(
                             text = "${state.cpuUsagePct}%",
-                            fontSize = 16.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
                             color = Primary
                         )
                     }
                     Text(
                         text = "RAM: ${state.ramUsedGb} / ${state.ramTotalGb} GB",
-                        fontSize = 13.sp,
+                        fontSize = 11.sp,
                         color = TextSecondary,
-                        modifier = Modifier.padding(top = 2.dp)
+                        modifier = Modifier.padding(top = 1.dp)
                     )
                 }
             }
@@ -380,8 +381,8 @@ fun ExpressiveActionTile(
         modifier = modifier
             .clip(shape)
             .background(bgColor)
-            .padding(18.dp)
-            .height(104.dp)
+            .padding(10.dp)
+            .height(68.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -389,7 +390,7 @@ fun ExpressiveActionTile(
         ) {
             Box(
                 modifier = Modifier
-                    .size(44.dp)
+                    .size(28.dp)
                     .clip(CircleShape)
                     .background(Primary),
                 contentAlignment = Alignment.Center
@@ -398,18 +399,18 @@ fun ExpressiveActionTile(
                     imageVector = icon,
                     contentDescription = title,
                     tint = OnPrimary,
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(16.dp)
                 )
             }
             Column {
                 Text(
                     text = title,
-                    fontSize = 13.sp,
+                    fontSize = 11.sp,
                     color = textColor.copy(alpha = 0.8f)
                 )
                 Text(
                     text = value,
-                    fontSize = 20.sp,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = textColor
                 )

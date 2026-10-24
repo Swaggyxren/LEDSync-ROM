@@ -1,5 +1,6 @@
 package com.xiannn.ledsync.system.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,11 +41,24 @@ enum class ScreenRoute {
 
 @Composable
 fun MainShell() {
-    var currentTab by remember { mutableStateOf(NavTab.HOME) }
-    var currentRoute by remember { mutableStateOf(ScreenRoute.HOME) }
+    val backStack = remember { mutableStateListOf(ScreenRoute.HOME) }
+    val currentRoute = backStack.lastOrNull() ?: ScreenRoute.HOME
 
     fun navigateTo(route: ScreenRoute) {
-        currentRoute = route
+        if (currentRoute != route) {
+            backStack.add(route)
+        }
+    }
+
+    fun handleBack() {
+        if (backStack.size > 1) {
+            backStack.removeAt(backStack.lastIndex)
+        }
+    }
+
+    // Intercept system back navigation: pop to previous screen when not at root HOME
+    BackHandler(enabled = backStack.size > 1) {
+        handleBack()
     }
 
     Box(
@@ -76,25 +91,25 @@ fun MainShell() {
             ScreenRoute.PERFORMANCE -> {
                 PerformanceScreen(
                     viewModel = hiltViewModel(),
-                    onBack = { navigateTo(ScreenRoute.HOME) }
+                    onBack = { handleBack() }
                 )
             }
             ScreenRoute.APP_SYNC -> {
                 AppSyncScreen(
                     viewModel = hiltViewModel(),
-                    onBack = { navigateTo(ScreenRoute.HOME) }
+                    onBack = { handleBack() }
                 )
             }
             ScreenRoute.BATTERY_STUDIO -> {
                 BatteryStudioScreen(
                     viewModel = hiltViewModel(),
-                    onBack = { navigateTo(ScreenRoute.HOME) }
+                    onBack = { handleBack() }
                 )
             }
             ScreenRoute.AUDIO_REACTIVE -> {
                 AudioReactiveScreen(
                     viewModel = hiltViewModel(),
-                    onBack = { navigateTo(ScreenRoute.HOME) }
+                    onBack = { handleBack() }
                 )
             }
         }
@@ -110,13 +125,25 @@ fun MainShell() {
                 .navigationBarsPadding()
         ) {
             FigmaDock(
-                currentTab = currentTab,
+                currentTab = when (currentRoute) {
+                    ScreenRoute.HARDWARE_LAB -> NavTab.LEDS
+                    ScreenRoute.TWEAKS -> NavTab.TWEAKS
+                    else -> NavTab.HOME
+                },
                 onTabSelected = { tab ->
-                    currentTab = tab
-                    currentRoute = when (tab) {
+                    val targetRoute = when (tab) {
                         NavTab.HOME -> ScreenRoute.HOME
                         NavTab.LEDS -> ScreenRoute.HARDWARE_LAB
                         NavTab.TWEAKS -> ScreenRoute.TWEAKS
+                    }
+                    if (targetRoute == ScreenRoute.HOME) {
+                        backStack.clear()
+                        backStack.add(ScreenRoute.HOME)
+                    } else if (currentRoute != targetRoute) {
+                        if (backStack.size > 1 && backStack.last() in listOf(ScreenRoute.HARDWARE_LAB, ScreenRoute.TWEAKS)) {
+                            backStack.removeAt(backStack.lastIndex)
+                        }
+                        backStack.add(targetRoute)
                     }
                 }
             )

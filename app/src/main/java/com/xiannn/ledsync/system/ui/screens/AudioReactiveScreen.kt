@@ -69,28 +69,28 @@ fun AudioReactiveScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = 18.dp, vertical = 20.dp)
+            .padding(horizontal = 14.dp, vertical = 8.dp)
             .navigationBarsPadding()
     ) {
         // Back Header
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(14.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .size(52.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
                     .background(Surface3)
                     .clickable { onBack() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary)
+                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary, modifier = Modifier.size(18.dp))
             }
             Text(
                 text = "Audio Reactive LED",
-                fontSize = 28.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
                 letterSpacing = (-0.5).sp,
                 color = TextPrimary
@@ -101,18 +101,18 @@ fun AudioReactiveScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(topStart = 44.dp, topEnd = 14.dp, bottomStart = 44.dp, bottomEnd = 14.dp))
+                .clip(RoundedCornerShape(topStart = 28.dp, topEnd = 12.dp, bottomStart = 28.dp, bottomEnd = 12.dp))
                 .background(if (state.isEnabled) Primary else Surface2)
-                .padding(22.dp)
+                .padding(14.dp)
         ) {
             Column {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(72.dp)
+                            .size(44.dp)
                             .clip(CircleShape)
                             .background(if (state.isEnabled) OnPrimary else Primary)
                             .clickable { viewModel.toggleEnabled(!state.isEnabled) },

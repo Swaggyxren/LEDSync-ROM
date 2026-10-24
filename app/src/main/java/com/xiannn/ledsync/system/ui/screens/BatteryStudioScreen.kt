@@ -75,28 +75,28 @@ fun BatteryStudioScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = 18.dp, vertical = 20.dp)
+            .padding(horizontal = 14.dp, vertical = 8.dp)
             .navigationBarsPadding()
     ) {
         // Top Back Header
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(14.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .size(52.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
                     .background(Surface3)
                     .clickable { onBack() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary)
+                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary, modifier = Modifier.size(18.dp))
             }
             Text(
                 text = "Battery LED Studio",
-                fontSize = 28.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
                 letterSpacing = (-0.5).sp,
                 color = TextPrimary
@@ -109,37 +109,37 @@ fun BatteryStudioScreen(
                 .fillMaxWidth()
                 .clip(CardShapeLarge)
                 .background(Surface2)
-                .padding(vertical = 24.dp),
+                .padding(vertical = 12.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(modifier = Modifier.size(150.dp), contentAlignment = Alignment.Center) {
+                Box(modifier = Modifier.size(100.dp), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         drawCircle(
                             color = Surface3,
-                            radius = 62.dp.toPx(),
-                            style = Stroke(width = 16.dp.toPx(), cap = StrokeCap.Round)
+                            radius = 42.dp.toPx(),
+                            style = Stroke(width = 10.dp.toPx(), cap = StrokeCap.Round)
                         )
                         drawArc(
                             color = WarningColor,
                             startAngle = -90f,
                             sweepAngle = (state.currentLevel / 100f) * 360f,
                             useCenter = false,
-                            style = Stroke(width = 16.dp.toPx(), cap = StrokeCap.Round)
+                            style = Stroke(width = 10.dp.toPx(), cap = StrokeCap.Round)
                         )
                     }
                     Text(
                         text = "${state.currentLevel}%",
-                        fontSize = 34.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = TextPrimary
                     )
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = if (state.isCharging) "CHARGING" else "BATTERY",
-                    fontSize = 12.sp,
+                    fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp,
                     color = TextSecondary
@@ -147,7 +147,7 @@ fun BatteryStudioScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Trigger thresholds",

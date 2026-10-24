@@ -48,11 +48,11 @@ fun FigmaDock(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 36.dp, vertical = 14.dp)
-            .height(70.dp)
+            .padding(horizontal = 24.dp, vertical = 6.dp)
+            .height(56.dp)
             .clip(DockShape)
             .background(Surface3)
-            .padding(6.dp)
+            .padding(4.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -68,8 +68,8 @@ fun FigmaDock(
                 Box(
                     modifier = Modifier
                         .weight(weight)
-                        .height(58.dp)
-                        .clip(RoundedCornerShape(29.dp))
+                        .height(48.dp)
+                        .clip(RoundedCornerShape(24.dp))
                         .background(bgColor)
                         .clickable { onTabSelected(tab) },
                     contentAlignment = Alignment.Center
@@ -81,12 +81,13 @@ fun FigmaDock(
                         Icon(
                             imageVector = tab.icon,
                             contentDescription = tab.title,
-                            tint = contentColor
+                            tint = contentColor,
+                            modifier = Modifier.size(20.dp)
                         )
                         Text(
                             text = tab.title,
                             color = contentColor,
-                            fontSize = 11.sp,
+                            fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                     }

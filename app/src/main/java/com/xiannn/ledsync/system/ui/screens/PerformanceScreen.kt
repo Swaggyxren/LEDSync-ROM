@@ -55,28 +55,28 @@ fun PerformanceScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 18.dp, vertical = 20.dp)
+            .padding(horizontal = 14.dp, vertical = 8.dp)
             .navigationBarsPadding()
     ) {
         // Top Back Navigation Header
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 20.dp),
-            horizontalArrangement = Arrangement.spacedBy(14.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .size(52.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
                     .background(Surface3)
                     .clickable { onBack() },
                 contentAlignment = Alignment.Center
             ) {
-                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary)
+                Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = TextPrimary, modifier = Modifier.size(18.dp))
             }
             Text(
                 text = "Performance Monitor",
-                fontSize = 28.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
                 letterSpacing = (-0.5).sp,
                 color = TextPrimary

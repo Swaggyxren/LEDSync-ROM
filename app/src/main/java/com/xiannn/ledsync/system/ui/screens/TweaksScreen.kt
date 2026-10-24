@@ -64,33 +64,33 @@ fun TweaksScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = 18.dp, vertical = 20.dp)
-            .padding(bottom = 120.dp)
+            .padding(horizontal = 14.dp, vertical = 6.dp)
+            .padding(bottom = 72.dp)
     ) {
         // Header
-        Column(modifier = Modifier.padding(bottom = 20.dp)) {
+        Column(modifier = Modifier.padding(bottom = 6.dp)) {
             Text(
                 text = "Tweaks",
-                fontSize = 32.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
-                letterSpacing = (-1).sp,
+                letterSpacing = (-0.5).sp,
                 color = TextPrimary
             )
             Text(
                 text = "Modes, triggers and preferences",
-                fontSize = 15.sp,
+                fontSize = 12.sp,
                 color = TextSecondary,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 1.dp)
             )
         }
 
         // Section: Modes
         Text(
             text = "Modes & Quick Access",
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = TextSecondary,
-            modifier = Modifier.padding(bottom = 12.dp)
+            modifier = Modifier.padding(bottom = 6.dp)
         )
 
         Column(
@@ -119,23 +119,23 @@ fun TweaksScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         // Section: Theme Segmented Buttons
         Text(
             text = "Theme",
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = TextSecondary,
-            modifier = Modifier.padding(bottom = 12.dp)
+            modifier = Modifier.padding(bottom = 6.dp)
         )
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(28.dp))
+                .clip(RoundedCornerShape(20.dp))
                 .background(Surface3)
-                .padding(4.dp)
+                .padding(3.dp)
         ) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 listOf("SYSTEM" to "System", "LIGHT" to "Light", "DARK" to "Dark").forEach { (key, label) ->
@@ -143,8 +143,8 @@ fun TweaksScreen(
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .height(46.dp)
-                            .clip(RoundedCornerShape(24.dp))
+                            .height(36.dp)
+                            .clip(RoundedCornerShape(18.dp))
                             .background(if (selected) Primary else Surface3)
                             .clickable { viewModel.setThemeMode(key) },
                         contentAlignment = Alignment.Center
@@ -153,22 +153,22 @@ fun TweaksScreen(
                             text = label,
                             color = if (selected) OnPrimary else TextSecondary,
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 14.sp
+                            fontSize = 12.sp
                         )
                     }
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         // Section: Sensors & System Invariants (Stock Parity)
         Text(
             text = "Sensors & System Invariants",
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = TextSecondary,
-            modifier = Modifier.padding(bottom = 12.dp)
+            modifier = Modifier.padding(bottom = 6.dp)
         )
 
         Column(
@@ -223,24 +223,24 @@ fun TweakNavigationRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(16.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(14.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Box(
             modifier = Modifier
-                .size(48.dp)
+                .size(32.dp)
                 .clip(CircleShape)
                 .background(Primary),
             contentAlignment = Alignment.Center
         ) {
-            Icon(imageVector = icon, contentDescription = title, tint = OnPrimary)
+            Icon(imageVector = icon, contentDescription = title, tint = OnPrimary, modifier = Modifier.size(18.dp))
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = TextPrimary)
-            Text(text = subtitle, fontSize = 13.sp, color = TextSecondary)
+            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = TextPrimary)
+            Text(text = subtitle, fontSize = 11.sp, color = TextSecondary)
         }
-        Icon(imageVector = Icons.Rounded.ChevronRight, contentDescription = "Open", tint = TextSecondary)
+        Icon(imageVector = Icons.Rounded.ChevronRight, contentDescription = "Open", tint = TextSecondary, modifier = Modifier.size(18.dp))
     }
 }
 
@@ -255,22 +255,22 @@ fun TweakSwitchRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal = 12.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(14.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Box(
             modifier = Modifier
-                .size(48.dp)
+                .size(32.dp)
                 .clip(CircleShape)
                 .background(Surface3),
             contentAlignment = Alignment.Center
         ) {
-            Icon(imageVector = icon, contentDescription = title, tint = Primary)
+            Icon(imageVector = icon, contentDescription = title, tint = Primary, modifier = Modifier.size(18.dp))
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = TextPrimary)
-            Text(text = subtitle, fontSize = 13.sp, color = TextSecondary)
+            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = TextPrimary)
+            Text(text = subtitle, fontSize = 10.sp, color = TextSecondary)
         }
         Switch(
             checked = checked,
