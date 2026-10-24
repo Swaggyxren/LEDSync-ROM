@@ -53,22 +53,26 @@ class BatteryStudioViewModel @Inject constructor(
     val uiState: StateFlow<BatteryStudioUiState> = combine(
         _batteryLevel,
         _isCharging,
-        preferencesRepository.battLowThreshold,
-        preferencesRepository.battCritThreshold,
-        preferencesRepository.battFullThreshold,
-        preferencesRepository.battLowEffect,
-        preferencesRepository.battCritEffect,
-        preferencesRepository.battFullEffect
-    ) { level, chg, low, crit, full, lowEff, critEff, fullEff ->
+        combine(
+            preferencesRepository.battLowThreshold,
+            preferencesRepository.battCritThreshold,
+            preferencesRepository.battFullThreshold
+        ) { low, crit, full -> Triple(low, crit, full) },
+        combine(
+            preferencesRepository.battLowEffect,
+            preferencesRepository.battCritEffect,
+            preferencesRepository.battFullEffect
+        ) { lowEff, critEff, fullEff -> Triple(lowEff, critEff, fullEff) }
+    ) { level, chg, thresholds, effects ->
         BatteryStudioUiState(
             currentLevel = level,
             isCharging = chg,
-            lowThreshold = low,
-            critThreshold = crit,
-            fullThreshold = full,
-            lowEffect = lowEff,
-            critEffect = critEff,
-            fullEffect = fullEff
+            lowThreshold = thresholds.first,
+            critThreshold = thresholds.second,
+            fullThreshold = thresholds.third,
+            lowEffect = effects.first,
+            critEffect = effects.second,
+            fullEffect = effects.third
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), BatteryStudioUiState())
 
